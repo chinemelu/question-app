@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import VueTelInput from "vue3-tel-input";
 
-import "@/style.scss";
 import "vue3-tel-input/dist/vue3-tel-input.css";
+import "@/styles/main.scss";
 
 import App from "./App.vue";
 import router from "./router";
