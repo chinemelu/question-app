@@ -40,6 +40,9 @@ Add additional notes about how to deploy this on a live system
 ## Built With
 
 * [Vue 3](https://v3.vuejs.org/) - The Progressive JavaScript Framework
+* [Vuelidate](https://vuelidate.js.org/) - Simple, lightweight model-based validation for Vue.js
+* [lodash/upperFirst](https://www.npmjs.com/package/lodash.upperfirst) - 
+* [lodash/camelCase]() - 
 
 ## Authors
 
