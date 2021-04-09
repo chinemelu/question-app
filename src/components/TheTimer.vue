@@ -36,6 +36,7 @@ export default {
 
       if (!this.timeLeft) {
         clearInterval(this.timerInterval);
+        this.$router.push({ name: "summary-page" });
       }
 
       this.timeLeft = this.formatTime(this.timeLeft);

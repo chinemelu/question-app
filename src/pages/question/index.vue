@@ -1,15 +1,17 @@
 <template>
-  <component
-    :is="arrayOfQuestions[0]"
-    :questionProps="questions[activeComponentIndex]"
-    :pageNumber="activeComponentIndex + 1"
-  />
+  <transition name="fade" mode="out-in" appear>
+    <component
+      :is="arrayOfQuestions[0]"
+      :questionProps="questions[activeComponentIndex]"
+      :pageNumber="activeComponentIndex + 1"
+    />
+  </transition>
 </template>
 
 <script>
 import Question from "@/pages/question/Question.vue";
-
 import { markRaw } from "vue";
+
 export default {
   data() {
     return {

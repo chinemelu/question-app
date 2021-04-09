@@ -8,6 +8,9 @@ export default {
   components: {
     Summary,
   },
+  mounted() {
+    this.$store.commit("timerShouldNotShow");
+  },
 };
 </script>
 

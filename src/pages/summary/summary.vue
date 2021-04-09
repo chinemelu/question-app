@@ -3,25 +3,49 @@
     <h1 class="summary-page__heading">Summary</h1>
     <div class="summary-page__item summary-page__item--1">
       <p class="summary-page__item-text">Total Questions Answered</p>
-      <p class="summary-page__item-value">18</p>
+      <p class="summary-page__item-value">
+        {{ questionsSummary.numberOfQuestionsAnswered }}
+      </p>
     </div>
     <div class="summary-page__item summary-page__item--2">
       <p class="summary-page__item-text">Total Correct Answers</p>
-      <p class="summary-page__item-value">18</p>
+      <p class="summary-page__item-value">
+        {{ questionsSummary.numberOfCorrectAnswers }}
+      </p>
     </div>
     <div class="summary-page__item summary-page__item--3">
       <p class="summary-page__item-text">Total Incorrect Answers</p>
-      <p class="summary-page__item-value">0</p>
+      <p class="summary-page__item-value">
+        {{ questionsSummary.numberOfIncorrectAnswers }}
+      </p>
     </div>
     <div class="summary-page__item summary-page__item--4">
       <p class="summary-page__item-text">Total Points Accumulated</p>
-      <p class="summary-page__item-value">100%</p>
+      <p class="summary-page__item-value">
+        {{ questionsSummary.percentageOfUser }}%
+      </p>
+    </div>
+    <div class="summary-page__btn">
+      <BaseButton class="welcome-page__button" @click="goToBeginningOfTest"
+        >Re-take Test</BaseButton
+      >
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    goToBeginningOfTest() {
+      this.$router.push({ name: "question-page" });
+    },
+  },
+  computed: {
+    questionsSummary() {
+      return this.$store.state.questionsSummary;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -30,7 +54,7 @@ export default {};
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 15px;
   grid-row-gap: 10px;
-  padding: 1.5rem 2rem;
+  padding: 1rem;
   &__heading {
     grid-column: 1/3;
     grid-row: 1 / 2;
@@ -79,6 +103,9 @@ export default {};
   }
   &__item-value {
     margin-bottom: 2rem;
+  }
+  &__btn {
+    grid-column: 1/3;
   }
 }
 </style>

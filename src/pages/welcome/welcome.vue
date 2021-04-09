@@ -21,10 +21,14 @@
       </p>
       <vue-tel-input
         defaultCountry="NG"
-        v-model="phoneNumber"
+        v-model="phone"
+        @input="updateValueOfPhone"
         class="welcome-section__telephone-input"
       />
-      <BaseButton @click="handleClick" class="welcome-page__button"
+      <BaseButton
+        :disabled="buttonIsDisabled"
+        @click="handleClick"
+        class="welcome-page__button"
         >Continue</BaseButton
       >
     </section>
@@ -35,16 +39,27 @@
 export default {
   data() {
     return {
-      phoneNumber: "",
+      phone: "",
     };
+  },
+  computed: {
+    buttonIsDisabled() {
+      console.log(typeof this.phone);
+      let phoneNumberWithoutSpaces = this.phone.split(" ").join("");
+      return phoneNumberWithoutSpaces.length !== 11;
+    },
   },
   mounted() {
     this.$store.commit("backButtonShouldNotShow");
   },
   methods: {
     handleClick() {
-      console.log("click");
       this.$emit("continue-to-next-section");
+    },
+    updateValueOfPhone(value) {
+      if (typeof value === "string") {
+        this.phone = value;
+      }
     },
   },
 };

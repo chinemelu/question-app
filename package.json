@@ -16,7 +16,6 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vue3-tel-input": "^1.0.4",
-    "vuelidate": "^0.7.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

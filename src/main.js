@@ -15,7 +15,13 @@ const app = createApp(App).use(router);
 
 registerBaseComponents(app);
 
-app.use(VueTelInput);
+const inputOptions = {
+  inputOptions: {
+    placeholder: "e.g 08174318740",
+  },
+};
+
+app.use(VueTelInput, inputOptions);
 app.use(store);
 
 app.mount("#app");

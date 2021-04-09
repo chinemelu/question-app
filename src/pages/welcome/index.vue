@@ -1,8 +1,10 @@
 <template>
-  <component
-    :is="componentList[activeComponentIndex]"
-    @continue-to-next-section="moveToNextComponent"
-  />
+  <transition name="fade" mode="out-in" appear>
+    <component
+      :is="componentList[activeComponentIndex]"
+      @continue-to-next-section="moveToNextComponent"
+    />
+  </transition>
 </template>
 
 <script>

@@ -9,6 +9,7 @@ const store = createStore({
       showBackButton: false,
       showTimer: false,
       activeComponentIndex: 0,
+      questionsSummary: [],
     };
   },
   mutations: {
@@ -32,6 +33,9 @@ const store = createStore({
     },
     decreaseActiveComponentIndex(state) {
       state.activeComponentIndex -= 1;
+    },
+    updateQuestionSummary(state, payload) {
+      state.questionsSummary = payload;
     },
   },
 });

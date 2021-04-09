@@ -14,15 +14,15 @@
           <BaseRadio
             class="question-page__radio"
             v-model="picked"
-            :value="index + 1"
+            :value="index"
           />{{ questionOption.choice }}
         </li>
       </ul>
     </main>
     <div>
       <BaseButton
-        @click="goToNextQuestion"
-        :disabled="!picked"
+        @click="handleClick"
+        :disabled="picked === ''"
         class="welcome-page__button"
         >{{ buttonText }}</BaseButton
       >
@@ -53,18 +53,51 @@ export default {
     numberOfQuestions() {
       return this.$store.state.questions.data.length;
     },
+    percentageOfUser() {
+      let percentage =
+        (this.numberOfCorrectAnswers / this.numberOfQuestions) * 100;
+      // convert percentage to 1 decimal place, if it is a fraction, for better accuracy
+      let formattedPercentage = Math.round(percentage * 10) / 10;
+      return formattedPercentage;
+    },
+    answerIsCorrect() {
+      const userChoiceIndex = this.picked;
+      const correctChoiceIndex = this.questionProps.choices.findIndex(
+        (question) => question.is_correct_choice === 1
+      );
+      return userChoiceIndex === correctChoiceIndex;
+    },
+    numberOfIncorrectAnswers() {
+      return this.numberOfQuestionsAnswered - this.numberOfCorrectAnswers;
+    },
   },
   data() {
     return {
       count: 0,
       picked: "",
+      numberOfQuestionsAnswered: 0,
+      numberOfCorrectAnswers: 0,
     };
   },
   methods: {
-    goToNextQuestion() {
-      // reset the picked options
-      this.picked = "";
-      this.$store.commit("incrementActiveComponentIndex");
+    handleClick() {
+      let questionSummary = {
+        numberOfQuestionsAnswered: ++this.numberOfQuestionsAnswered,
+        numberOfCorrectAnswers: this.answerIsCorrect
+          ? ++this.numberOfCorrectAnswers
+          : this.numberOfCorrectAnswers,
+        percentageOfUser: this.percentageOfUser,
+        numberOfIncorrectAnswers: this.numberOfIncorrectAnswers,
+      };
+      this.$store.commit("updateQuestionSummary", questionSummary);
+      // this is the last question
+      if (this.pageNumber === this.numberOfQuestions) {
+        this.$router.push({ name: "summary-page" });
+      } else {
+        // reset the picked options
+        this.picked = "";
+        this.$store.commit("incrementActiveComponentIndex");
+      }
     },
   },
   mounted() {
@@ -77,7 +110,7 @@ export default {
 <style lang="scss" scoped>
 .question-page {
   color: $primary-white;
-  padding: 1rem;
+  padding: 0 1rem;
   &__question-heading {
     margin-top: 2rem;
     margin-bottom: 2rem;

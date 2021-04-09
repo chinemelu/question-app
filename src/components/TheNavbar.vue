@@ -43,7 +43,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   &__hamburger {
     display: flex;
     align-items: center;
