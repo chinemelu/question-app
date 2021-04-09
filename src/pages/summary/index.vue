@@ -1,19 +1,12 @@
 <template>
-  <div></div>
+  <Summary />
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
-
+import Summary from "@/pages/summary/summary.vue";
 export default {
-  setup() {
-    const state = reactive({
-      count: 0,
-    });
-
-    return {
-      ...toRefs(state),
-    };
+  components: {
+    Summary,
   },
 };
 </script>

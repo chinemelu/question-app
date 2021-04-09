@@ -1,24 +1,35 @@
 <template>
-  <Welcome />
+  <component
+    :is="componentList[activeComponentIndex]"
+    @continue-to-next-section="moveToNextComponent"
+  />
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
-
 import Welcome from "@/pages/welcome/welcome.vue";
+import Instructions from "@/pages/welcome/instructions.vue";
+
+import { markRaw } from "vue";
 
 export default {
   components: {
     Welcome,
+    Instructions,
   },
-  setup() {
-    const state = reactive({
-      count: 0,
-    });
-
+  data() {
     return {
-      ...toRefs(state),
+      componentList: markRaw([Welcome, Instructions]),
     };
+  },
+  computed: {
+    activeComponentIndex() {
+      return this.$store.state.activeComponentIndex;
+    },
+  },
+  methods: {
+    moveToNextComponent() {
+      this.$store.commit("incrementActiveComponentIndex");
+    },
   },
 };
 </script>

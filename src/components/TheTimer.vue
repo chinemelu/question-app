@@ -9,7 +9,7 @@
         <circle class="the-timer__path-elapsed" cx="50" cy="50" r="45" />
         <path
           stroke-dasharray="0"
-          :class="`the-timer__path-remaining${remainingPathColorClass}`"
+          class="the-timer__path-remaining"
           d="
           M 50, 50
           m -45, 0
@@ -50,7 +50,6 @@ export default {
       timerInterval: 0,
       timePassed: 0,
       initialTime: 120,
-      remainingPathColorClass: "--green",
     };
   },
 };
@@ -60,8 +59,8 @@ export default {
 /* Sets the containers height and width */
 .the-timer {
   position: relative;
-  height: 30rem;
-  width: 30rem;
+  height: 7rem;
+  width: 7rem;
   &__path-elapsed {
     stroke-width: 7px;
     stroke: grey;
@@ -72,10 +71,13 @@ export default {
   }
   &__time-left {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 4.8rem;
-    transform: translate(-50%, -50%);
+    width: 7rem;
+    height: 7rem;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
   }
 }
 </style>

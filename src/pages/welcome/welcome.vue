@@ -20,27 +20,32 @@
         Please enter your phone number below
       </p>
       <vue-tel-input
-        default-country-code="NG"
-        v-model="yourValue"
+        defaultCountry="NG"
+        v-model="phoneNumber"
         class="welcome-section__telephone-input"
       />
-      <BaseButton class="welcome-page__button">Continue</BaseButton>
+      <BaseButton @click="handleClick" class="welcome-page__button"
+        >Continue</BaseButton
+      >
     </section>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
-
 export default {
-  setup() {
-    const state = reactive({
-      yourValue: "",
-    });
-
+  data() {
     return {
-      ...toRefs(state),
+      phoneNumber: "",
     };
+  },
+  mounted() {
+    this.$store.commit("backButtonShouldNotShow");
+  },
+  methods: {
+    handleClick() {
+      console.log("click");
+      this.$emit("continue-to-next-section");
+    },
   },
 };
 </script>
@@ -50,11 +55,11 @@ export default {
   .welcome-page {
     &__image {
       position: relative;
-      min-height: 50vh;
     }
     &__logo {
       background-color: $primary-white;
       width: 100%;
+      height: 40vh;
     }
   }
   .welcome-section {
@@ -62,7 +67,7 @@ export default {
     background-color: $primary-color-dark;
     padding: 1.5vh 1vw 3vh 1vw;
     letter-spacing: 0.2rem;
-    min-height: 49vh;
+    min-height: 53vh;
     &__heading {
       font-size: 2.2rem;
       font-weight: 300;

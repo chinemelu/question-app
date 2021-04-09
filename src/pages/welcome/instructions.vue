@@ -17,37 +17,40 @@
     <section class="instructions-page__instructions">
       <h1 class="instructions-page__heading">Instructions</h1>
       <p class="instructions-page__secondary-text">
-        You have 120s (2 minutes) to answer as many questions as possible.
+        You have 120s (2 minutes) to answer {{ numberOfQuestions }} questions.
       </p>
 
       <p class="instructions-page__secondary-text">
-        Once you click the "Get Started" button, the timer (right hand side)
-        starts and once the time elapses, you will be redirected to the test
-        summary page.
+        Once you click the "Get Started" button, the timer will start and once
+        the time elapses, you will be redirected to the test summary page.
       </p>
       <p
         class="instructions-page__secondary-text instructions-page__secondary-text--1"
       >
-        If you finish the questions before time, you will be able to review your
-        answers.
+        Once you move on to another question, you will not be able to review
+        your answer.
       </p>
-      <BaseButton class="welcome-page__button">Get Started</BaseButton>
+      <BaseButton @click="goToQuestions" class="welcome-page__button"
+        >Get Started</BaseButton
+      >
     </section>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
-
 export default {
-  setup() {
-    const state = reactive({
-      yourValue: "",
-    });
-
-    return {
-      ...toRefs(state),
-    };
+  computed: {
+    numberOfQuestions() {
+      return this.$store.state.questions.data.length;
+    },
+  },
+  mounted() {
+    this.$store.commit("showBackButton");
+  },
+  methods: {
+    goToQuestions() {
+      this.$router.push({ name: "question-page" });
+    },
   },
 };
 </script>
@@ -57,23 +60,22 @@ export default {
   .instructions-page {
     &__image {
       position: relative;
-      min-height: 49vh;
       background-color: $secondary-color-dark;
       margin-bottom: 1px;
     }
     &__logo {
       width: 100%;
+      height: 40vh;
     }
     &__instructions {
-      padding: 1.5vh;
-      margin-top: 1rem;
+      padding: 0 3vw;
       text-align: center;
     }
     &__heading {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
     &__secondary-text {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin: 3vh auto;
     }
   }

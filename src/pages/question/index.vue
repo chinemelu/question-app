@@ -1,11 +1,34 @@
 <template>
-  <div></div>
+  <component
+    :is="arrayOfQuestions[0]"
+    :questionProps="questions[activeComponentIndex]"
+    :pageNumber="activeComponentIndex + 1"
+  />
 </template>
 
 <script>
-import Question from "@/components/Question.vue";
+import Question from "@/pages/question/Question.vue";
+
+import { markRaw } from "vue";
 export default {
-  components: Question,
+  data() {
+    return {
+      arrayOfQuestions: markRaw([Question]),
+    };
+  },
+
+  computed: {
+    activeComponentIndex() {
+      return this.$store.state.activeComponentIndex;
+    },
+    questions() {
+      return this.$store.state.questions.data;
+    },
+  },
+  mounted() {
+    this.$store.commit("resetActiveComponentIndex");
+    this.$store.commit("backButtonShouldNotShow");
+  },
 };
 </script>
 

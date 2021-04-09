@@ -14,7 +14,7 @@ export default {
 .welcome-page__button {
   display: block;
   border-radius: 5rem;
-  height: 5rem;
+  height: 4rem;
   width: 50%;
   color: $primary-white;
   background-color: $secondary-color-dark;
